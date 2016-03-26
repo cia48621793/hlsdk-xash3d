@@ -1,5 +1,19 @@
 workspace "tfc2"
-    configurations { "Debug", "Release" }
+    configurations { "dbg", "rel" }
+    platforms { "win", "linux", "osx" }
+    filter "configurations:dbg"
+        defines { "DEBUG" }
+        flags { "Symbols" }
+    filter "configurations:rel"
+        defines { "NDEBUG" }
+        buildoptions { "-O2" }
+        premake.tools.gcc.ldflags.flags._Symbols = nil -- premake5 strip bug hack
+    filter "platforms:win"
+        system "windows"
+    filter "platforms:linux"
+        system "linux"
+    filter "platforms:osx"
+        system "macosx"
 
 project "client"
     kind "SharedLib"
@@ -28,22 +42,23 @@ project "client"
         "common/", "game_shared/", "pm_shared/",
         "engine/", "dlls/"
     }
-    buildoptions {
-        "-pedantic", "-Wno-write-strings",
-        "--no-undefined", "-w", "-fpermissive", "-fsigned-char",
+    defines {
+        "CLIENT_WEAPONS", "CLIENT_DLL", "CLIENT_DLL=1",
     }
     defines {
-        "LINUX", "_LINUX", "CLIENT_WEAPONS", "CLIENT_DLL",
         "stricmp=strcasecmp", "_strnicmp=strncasecmp", 
         "strnicmp=strncasecmp", "sincosf=__sincosf",
         "_snprintf=snprintf",
     }
-    filter "configurations:Debug"
-        defines { "DEBUG" }
-        flags { "Symbols" }
-    filter "configurations:Release"
-        defines { "NDEBUG" }
-        optimize "On"
+    buildoptions {
+        "-pedantic", "-Wno-write-strings",
+        "--no-undefined", "-w",
+    }
+    filter "platforms:linux"
+        defines { "LINUX", "_LINUX", }
+    filter "platforms:osx"
+        defines { "LINUX", "_LINUX", } -- sorry bsdfags
+
 
 project "server"
     kind "SharedLib"
@@ -65,20 +80,19 @@ project "server"
         "dlls/playermonster.cpp",
         "dlls/prop.cpp",
     }
-    buildoptions {
-        "-pedantic", "-Wno-write-strings",
-        "--no-undefined", "-w", "-fpermissive", "-fsigned-char",
-        "-frtti", "-fno-exceptions"
+    defines {
+        "CLIENT_WEAPONS"
     }
     defines {
-        "LINUX", "_LINUX",
         "stricmp=strcasecmp", "_strnicmp=strncasecmp", 
         "strnicmp=strncasecmp", "sincosf=__sincosf",
         "_snprintf=snprintf",
     }
-    filter "configurations:Debug"
-        defines { "DEBUG" }
-        flags { "Symbols" }
-    filter "configurations:Release"
-        defines { "NDEBUG" }
-        optimize "On"
+    buildoptions {
+        "-pedantic", "-Wno-write-strings",
+        "--no-undefined", "-w",
+    }
+    filter "platforms:linux"
+        defines { "LINUX", "_LINUX", }
+    filter "platforms:osx"
+        defines { "LINUX", "_LINUX", } -- really sorry bsdfags
