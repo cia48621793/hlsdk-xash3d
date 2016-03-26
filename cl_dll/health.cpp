@@ -400,7 +400,7 @@ int CHudHealth::DrawDamage(float flTime)
 		}
 	}
 
-
+    int i;
 	// check for bits that should be expired
 	for ( i = 0; i < NUM_DMG_TYPES; i++ )
 	{

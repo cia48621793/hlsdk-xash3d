@@ -1,4 +1,4 @@
-//========= Copyright © 1996-2002, Valve LLC, All rights reserved. ============
+//========= Copyright ï¿½ 1996-2002, Valve LLC, All rights reserved. ============
 //
 // Purpose: 
 //
@@ -13,7 +13,7 @@
 
 
 #include <assert.h>
-
+#include <string.h>
 
 class CBitVecAccessor
 {
@@ -122,7 +122,7 @@ inline void CBitVec<NUM_BITS>::Init(int val)
 template<int NUM_BITS>
 inline CBitVec<NUM_BITS>& CBitVec<NUM_BITS>::operator=(CBitVec<NUM_BITS> const &other)
 {
-	memcpy(m_DWords, other.m_DWords, sizeof(m_DWords));
+    memcpy(m_DWords, other.m_DWords, sizeof(m_DWords));
 	return *this;
 }
 

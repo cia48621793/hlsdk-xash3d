@@ -1,4 +1,4 @@
-//========= Copyright © 1996-2002, Valve LLC, All rights reserved. ============
+//========= Copyright ï¿½ 1996-2002, Valve LLC, All rights reserved. ============
 //
 // Purpose: 
 //
@@ -911,7 +911,8 @@ void CStudioModelRenderer::StudioSetupBones ( void )
 
 		for (i = 0; i < m_pStudioHeader->numbones; i++)
 		{
-			for( int j = 0; j < LEGS_BONES_COUNT; j++ )
+            int j;
+			for( j = 0; j < LEGS_BONES_COUNT; j++ )
 			{
 				if( !strcmp( pbones[i].name, legs_bones[j] ))
 					break;

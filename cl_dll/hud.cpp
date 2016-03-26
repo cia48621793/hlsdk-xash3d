@@ -320,7 +320,7 @@ void CHud :: VidInit( void )
 			m_rgszSpriteNames = new char[m_iSpriteCount * MAX_SPRITE_NAME_LENGTH];
 
 			p = m_pSpriteList;
-			int index = 0;
+			int index = 0, j;
 			for ( j = 0; j < m_iSpriteCountAllRes; j++ )
 			{
 				if ( p->iRes == m_iRes )
@@ -363,7 +363,7 @@ void CHud :: VidInit( void )
 		m_rgszSpriteNames = new char[m_iSpriteCount * MAX_SPRITE_NAME_LENGTH];
 
 		p = m_pSpriteList;
-		int index = 0;
+		int index = 0, j;
 		for ( j = 0; j < m_iSpriteCountAllRes; j++ )
 		{
 			if ( p->iRes == m_iRes )

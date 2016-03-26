@@ -1063,7 +1063,7 @@ int CProp::TakeDamage(entvars_t* pevInflictor, entvars_t* pevAttacker, float flD
 	if ( !(pev->spawnflags & SF_PROP_BREAKABLE ) )
 		return 0;
 	if ( pev->health <= 0 )
-		return;
+		return 0;
 	// Breakables take double damage from the crowbar
 	if ( bitsDamageType & DMG_CLUB )
 		flDamage *= 2;

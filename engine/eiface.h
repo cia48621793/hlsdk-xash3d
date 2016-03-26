@@ -178,7 +178,7 @@ typedef struct enginefuncs_s
 	void	(*pfnAnimationAutomove)( const edict_t* pEdict, float flTime );
 	void	(*pfnGetBonePosition)( const edict_t* pEdict, int iBone, float *rgflOrigin, float *rgflAngles );
 	unsigned long (*pfnFunctionFromName)( const char *pName );
-	const char *(*pfnNameForFunction)( unsigned long function );
+	const char *(*pfnNameForFunction)( intptr_t function );
 	void	(*pfnClientPrintf)( edict_t* pEdict, PRINT_TYPE ptype, const char *szMsg ); // JOHN: engine callbacks so game DLL can print messages to individual clients
 	void	(*pfnServerPrint)( const char *szMsg );
 	const char *(*pfnCmd_Args)( void );		// these 3 added 
@@ -189,7 +189,7 @@ typedef struct enginefuncs_s
 	void	(*pfnCRC32_ProcessBuffer)( CRC32_t *pulCRC, void *p, int len );
 	void	(*pfnCRC32_ProcessByte)( CRC32_t *pulCRC, unsigned char ch );
 	CRC32_t	(*pfnCRC32_Final)( CRC32_t pulCRC );
-	long	(*pfnRandomLong)( long lLow, long lHigh );
+	int32_t	(*pfnRandomLong)( int32_t lLow, int32_t lHigh );
 	float	(*pfnRandomFloat)( float flLow, float flHigh );
 	void	(*pfnSetView)( const edict_t *pClient, const edict_t *pViewent );
 	float	(*pfnTime)( void );
@@ -361,7 +361,7 @@ typedef enum _fieldtypes
 } FIELDTYPE;
 
 #ifndef offsetof
-#define offsetof(s,m)	(size_t)&(((s *)0)->m)
+#define offsetof(s,m)	(intptr_t)&(((s *)0)->m)
 #endif
 
 #define _FIELD(type,name,fieldtype,count,flags)		{ fieldtype, #name, offsetof(type, name), count, flags }
@@ -380,7 +380,7 @@ typedef struct
 {
 	FIELDTYPE		fieldType;
 	char		*fieldName;
-	int		fieldOffset;
+	intptr_t		fieldOffset;
 	short		fieldSize;
 	short		flags;
 } TYPEDESCRIPTION;
